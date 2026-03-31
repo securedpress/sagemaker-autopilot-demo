@@ -1,514 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SageMaker Autopilot · Fintech Credit Risk Demo · SecuredPress</title>
-  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SageMaker Autopilot · Fintech Credit Risk Demo · SecuredPress</title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="img/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="header">
-    <a class="logo" href="https://securedpress.com" target="_blank">
-      <img src="img/securedpress_logo.png" alt="SecuredPress" />
-      <span class="logo-text">Secured<span>Press</span></span>
-    </a>
-    <div class="header-title">
-      SageMaker Autopilot <span class="sep">·</span> Fintech Credit Risk Demo <span class="sep">·</span> Cash Advance
-      Repayment Model
-    </div>
-    <div class="header-badges">
-      <span class="badge badge-green">&#9679; LIVE DEMO</span>
-      <span class="badge badge-cyan">SageMaker</span>
-      <span class="badge badge-amber">Fintech</span>
-    </div>
+<div class="header">
+  <a class="logo" href="https://securedpress.com" target="_blank">
+    <img src="img/securedpress_logo.png" alt="SecuredPress" />
+    <span class="logo-text">Secured<span>Press</span></span>
+  </a>
+  <div class="header-title">
+    SageMaker Autopilot <span class="sep">·</span> Fintech Credit Risk Demo <span class="sep">·</span> Cash Advance Repayment Model
   </div>
-
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab(0)"><span class="tab-num">01</span>EDA Overview</div>
-    <div class="tab" onclick="switchTab(1)"><span class="tab-num">02</span>Autopilot Leaderboard</div>
-    <div class="tab" onclick="switchTab(2)"><span class="tab-num">03</span>Model Comparison</div>
-    <div class="tab" onclick="switchTab(3)"><span class="tab-num">04</span>Feature Importance</div>
-    <div class="tab" onclick="switchTab(4)"><span class="tab-num">05</span>Endpoint Deployment</div>
-    <div class="tab" onclick="switchTab(5)"><span class="tab-num">06</span>About</div>
+  <div class="header-badges">
+    <span class="badge badge-green">&#9679; LIVE DEMO</span>
+    <span class="badge badge-cyan">SageMaker</span>
+    <span class="badge badge-amber">Fintech</span>
   </div>
+</div>
 
-  <div class="content">
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(0)"><span class="tab-num">01</span>EDA Overview</div>
+  <div class="tab" onclick="switchTab(1)"><span class="tab-num">02</span>Autopilot Leaderboard</div>
+  <div class="tab" onclick="switchTab(2)"><span class="tab-num">03</span>Model Comparison</div>
+  <div class="tab" onclick="switchTab(3)"><span class="tab-num">04</span>Feature Importance</div>
+  <div class="tab" onclick="switchTab(4)"><span class="tab-num">05</span>Endpoint Deployment</div>
+  <div class="tab" onclick="switchTab(5)"><span class="tab-num">06</span>About</div>
+</div>
 
-    <!-- PANEL 01: EDA -->
-    <div class="panel active" id="panel-0">
-      <div class="section-title">Exploratory Data Analysis</div>
-      <div class="section-sub">Dataset: 7,000 cash advance records &nbsp;·&nbsp; 18 engineered features &nbsp;·&nbsp;
-        Binary target: repayment outcome</div>
-      <div class="grid-4 mb16">
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--cyan)">7,000</div>
-          <div class="stat-label">Total Records</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--green)">88%</div>
-          <div class="stat-label">Baseline Repayment Rate</div>
-          <div class="stat-delta delta-up">Target: beat this</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--amber)">18</div>
-          <div class="stat-label">Engineered Features</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--red)">12%</div>
-          <div class="stat-label">Default Rate</div>
-          <div class="stat-delta" style="color:var(--muted2)">SMOTE applied</div>
-        </div>
+<div class="content">
+
+  <!-- PANEL 01: EDA -->
+  <div class="panel active" id="panel-0">
+    <div class="section-title">Exploratory Data Analysis</div>
+    <div class="section-sub">Dataset: 7,000 cash advance records &nbsp;·&nbsp; 18 engineered features &nbsp;·&nbsp; Binary target: repayment outcome</div>
+    <div class="grid-4 mb16">
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--cyan)">7,000</div>
+        <div class="stat-label">Total Records</div>
       </div>
-      <div class="grid-2 mb16">
-        <div class="card">
-          <div class="card-title">Target Distribution</div>
-          <div class="chart-wrap-sm"><canvas id="chartTarget"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Repayment Delay Bins</div>
-          <div class="chart-wrap-sm"><canvas id="chartDelay"></canvas></div>
-        </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--green)">88%</div>
+        <div class="stat-label">Baseline Repayment Rate</div>
+        <div class="stat-delta delta-up">Target: beat this</div>
       </div>
-      <div class="card mb16">
-        <div class="card-title">Feature Inventory</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>Source</th>
-              <th>Type</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="algo-name">balance_advance_ratio</td>
-              <td style="color:var(--cyan);font-size:11px">Plaid</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Top predictor — strongest class separation</td>
-            </tr>
-            <tr>
-              <td class="algo-name">prior_repay_score</td>
-              <td style="color:var(--amber);font-size:11px">Internal DB</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Historical repayment behaviour (0–1)</td>
-            </tr>
-            <tr>
-              <td class="algo-name">days_since_payroll</td>
-              <td style="color:var(--cyan);font-size:11px">Plaid</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Derived from transaction pattern analysis</td>
-            </tr>
-            <tr>
-              <td class="algo-name">avg_monthly_income</td>
-              <td style="color:var(--cyan);font-size:11px">Plaid</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">3-month rolling average</td>
-            </tr>
-            <tr>
-              <td class="algo-name">tx_velocity_30d</td>
-              <td style="color:var(--cyan);font-size:11px">Plaid</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Debit transaction count last 30 days</td>
-            </tr>
-            <tr>
-              <td class="algo-name">overdraft_frequency</td>
-              <td style="color:var(--amber);font-size:11px">Internal DB</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Historical overdraft count</td>
-            </tr>
-            <tr>
-              <td class="algo-name">income_stability</td>
-              <td style="color:var(--cyan);font-size:11px">Plaid</td>
-              <td>Numeric</td>
-              <td style="color:var(--muted2);font-size:11px">Payroll deposit consistency score (0–1)</td>
-            </tr>
-            <tr>
-              <td class="algo-name">neobank</td>
-              <td style="color:var(--purple);font-size:11px">User Attrs</td>
-              <td>Binary</td>
-              <td style="color:var(--muted2);font-size:11px">Chime, Cash App, etc.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--amber)">18</div>
+        <div class="stat-label">Engineered Features</div>
       </div>
-      <div class="insight-box">
-        <div class="insight-label">EDA Insight</div>
-        <div class="insight-text">Class imbalance (88/12 split) is handled by SageMaker Autopilot internally via SMOTE
-          oversampling during the preprocessing stage. The raw CSV is passed as-is. <code>balance_advance_ratio</code>
-          shows the strongest univariate separation between repaid and defaulted classes.</div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--red)">12%</div>
+        <div class="stat-label">Default Rate</div>
+        <div class="stat-delta" style="color:var(--muted2)">SMOTE applied</div>
       </div>
     </div>
-
-    <!-- PANEL 02: LEADERBOARD -->
-    <div class="panel" id="panel-1">
-      <div class="section-title">Autopilot Model Leaderboard</div>
-      <div class="section-sub">SageMaker Autopilot explored
-        <!-- GENERATED:CANDIDATE_COUNT -->250+<!-- GENERATED:CANDIDATE_COUNT --> trials across multiple algorithm
-        families &nbsp;·&nbsp; Optimized on AUC-ROC
-      </div>
-      <div class="grid-4 mb16">
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--cyan)">
-            <!-- GENERATED:CANDIDATE_COUNT -->250+<!-- GENERATED:CANDIDATE_COUNT -->
-          </div>
-          <div class="stat-label">Trials Evaluated</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--green)"><!-- GENERATED:BEST_AUC -->0.934<!-- GENERATED:BEST_AUC -->
-          </div>
-          <div class="stat-label">Best AUC-ROC</div>
-          <div class="stat-delta delta-up">&#8593; vs 0.874 baseline</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--amber)">
-            <!-- GENERATED:BEST_ALGO -->XGBoost<!-- GENERATED:BEST_ALGO -->
-          </div>
-          <div class="stat-label">Winning Algorithm</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--purple)">
-            <!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT -->
-          </div>
-          <div class="stat-label">AUC Improvement</div>
-        </div>
-      </div>
-      <div class="card mb16">
-        <div class="card-title">Candidate Rankings</div>
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Algorithm</th>
-              <th>AUC-ROC</th>
-              <th>PR-AUC</th>
-              <th>F1 Score</th>
-              <th>Accuracy</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- GENERATED:LEADERBOARD_ROWS -->
-            <tr>
-              <td class="rank-num">01</td>
-              <td class="algo-name" style="color:var(--green)">XGBoost (Autopilot-tuned)</td>
-              <td class="metric-val" style="color:var(--green)">0.934</td>
-              <td class="metric-val">0.871</td>
-              <td class="metric-val">0.892</td>
-              <td class="metric-val">93.1%</td>
-              <td><span class="pill pill-best">BEST</span></td>
-            </tr>
-            <tr>
-              <td class="rank-num">02</td>
-              <td class="algo-name">LightGBM</td>
-              <td class="metric-val">0.929</td>
-              <td class="metric-val">0.863</td>
-              <td class="metric-val">0.887</td>
-              <td class="metric-val">92.8%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="rank-num">03</td>
-              <td class="algo-name">Linear Learner</td>
-              <td class="metric-val">0.911</td>
-              <td class="metric-val">0.841</td>
-              <td class="metric-val">0.869</td>
-              <td class="metric-val">91.2%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="rank-num">04</td>
-              <td class="algo-name">Neural Network (MLP)</td>
-              <td class="metric-val">0.908</td>
-              <td class="metric-val">0.835</td>
-              <td class="metric-val">0.863</td>
-              <td class="metric-val">90.8%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="rank-num">05</td>
-              <td class="algo-name" style="color:var(--red)">Baseline (pre-Autopilot)</td>
-              <td class="metric-val" style="color:var(--red)">0.874</td>
-              <td class="metric-val">—</td>
-              <td class="metric-val">—</td>
-              <td class="metric-val">88.0%</td>
-              <td><span class="pill pill-baseline">BASELINE</span></td>
-            </tr>
-            <!-- GENERATED:LEADERBOARD_ROWS -->
-          </tbody>
-        </table>
+    <div class="grid-2 mb16">
+      <div class="card">
+        <div class="card-title">Target Distribution</div>
+        <div class="chart-wrap-sm"><canvas id="chartTarget"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-title">AUC-ROC by Algorithm</div>
-        <div class="chart-wrap"><canvas id="chartLeaderboard"></canvas></div>
+        <div class="card-title">Repayment Delay Bins</div>
+        <div class="chart-wrap-sm"><canvas id="chartDelay"></canvas></div>
       </div>
     </div>
+    <div class="card mb16">
+      <div class="card-title">Feature Inventory</div>
+      <table>
+        <thead><tr><th>Feature</th><th>Source</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="algo-name">balance_advance_ratio</td><td style="color:var(--cyan);font-size:11px">Plaid</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Top predictor — strongest class separation</td></tr>
+          <tr><td class="algo-name">prior_repay_score</td><td style="color:var(--amber);font-size:11px">Internal DB</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Historical repayment behaviour (0–1)</td></tr>
+          <tr><td class="algo-name">days_since_payroll</td><td style="color:var(--cyan);font-size:11px">Plaid</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Derived from transaction pattern analysis</td></tr>
+          <tr><td class="algo-name">avg_monthly_income</td><td style="color:var(--cyan);font-size:11px">Plaid</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">3-month rolling average</td></tr>
+          <tr><td class="algo-name">tx_velocity_30d</td><td style="color:var(--cyan);font-size:11px">Plaid</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Debit transaction count last 30 days</td></tr>
+          <tr><td class="algo-name">overdraft_frequency</td><td style="color:var(--amber);font-size:11px">Internal DB</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Historical overdraft count</td></tr>
+          <tr><td class="algo-name">income_stability</td><td style="color:var(--cyan);font-size:11px">Plaid</td><td>Numeric</td><td style="color:var(--muted2);font-size:11px">Payroll deposit consistency score (0–1)</td></tr>
+          <tr><td class="algo-name">neobank</td><td style="color:var(--purple);font-size:11px">User Attrs</td><td>Binary</td><td style="color:var(--muted2);font-size:11px">Chime, Cash App, etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight-box">
+      <div class="insight-label">EDA Insight</div>
+      <div class="insight-text">Class imbalance (88/12 split) is handled by SageMaker Autopilot internally via SMOTE oversampling during the preprocessing stage. The raw CSV is passed as-is. <code>balance_advance_ratio</code> shows the strongest univariate separation between repaid and defaulted classes.</div>
+    </div>
+  </div>
 
-    <!-- PANEL 03: COMPARISON -->
-    <div class="panel" id="panel-2">
-      <div class="section-title">Baseline vs. Autopilot Model</div>
-      <div class="section-sub">Current model: offline XGBoost artifact &nbsp;·&nbsp; New model: Autopilot-tuned,
-        endpoint-served</div>
-      <div class="grid-4 mb16">
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--green)">92.4%</div>
-          <div class="stat-label">New Repayment Rate</div>
-          <div class="stat-delta delta-up">&#8593; +4.4pp vs 88%</div>
+  <!-- PANEL 02: LEADERBOARD -->
+  <div class="panel" id="panel-1">
+    <div class="section-title">Autopilot Model Leaderboard</div>
+    <div class="section-sub">SageMaker Autopilot explored <!-- GENERATED:CANDIDATE_COUNT -->250+<!-- GENERATED:CANDIDATE_COUNT --> trials across multiple algorithm families &nbsp;·&nbsp; Top candidates shown &nbsp;·&nbsp; Optimized on AUC-ROC</div>
+    <div class="grid-4 mb16">
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--cyan)"><!-- GENERATED:CANDIDATE_COUNT -->250+<!-- GENERATED:CANDIDATE_COUNT --></div>
+        <div class="stat-label">Trials Evaluated</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--green)"><!-- GENERATED:BEST_AUC -->0.934<!-- GENERATED:BEST_AUC --></div>
+        <div class="stat-label">Best AUC-ROC</div>
+        <div class="stat-delta delta-up">&#8593; vs 0.874 baseline</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--amber)"><!-- GENERATED:BEST_ALGO -->XGBoost<!-- GENERATED:BEST_ALGO --></div>
+        <div class="stat-label">Winning Algorithm</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--purple)"><!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT --></div>
+        <div class="stat-label">AUC Improvement</div>
+      </div>
+    </div>
+    <div class="card mb16">
+      <div class="card-title">Candidate Rankings</div>
+      <table>
+        <thead><tr><th>#</th><th>Algorithm</th><th>AUC-ROC</th><th>PR-AUC</th><th>F1 Score</th><th>Accuracy</th><th></th></tr></thead>
+        <tbody>
+          <!-- GENERATED:LEADERBOARD_ROWS -->
+          <tr><td class="rank-num">01</td><td class="algo-name" style="color:var(--green)">XGBoost (Autopilot-tuned)</td><td class="metric-val" style="color:var(--green)">0.934</td><td class="metric-val">0.871</td><td class="metric-val">0.892</td><td class="metric-val">93.1%</td><td><span class="pill pill-best">BEST</span></td></tr>
+          <tr><td class="rank-num">02</td><td class="algo-name">LightGBM</td><td class="metric-val">0.929</td><td class="metric-val">0.863</td><td class="metric-val">0.887</td><td class="metric-val">92.8%</td><td></td></tr>
+          <tr><td class="rank-num">03</td><td class="algo-name">Linear Learner</td><td class="metric-val">0.911</td><td class="metric-val">0.841</td><td class="metric-val">0.869</td><td class="metric-val">91.2%</td><td></td></tr>
+          <tr><td class="rank-num">04</td><td class="algo-name">Neural Network (MLP)</td><td class="metric-val">0.908</td><td class="metric-val">0.835</td><td class="metric-val">0.863</td><td class="metric-val">90.8%</td><td></td></tr>
+          <tr><td class="rank-num">05</td><td class="algo-name">Random Forest</td><td class="metric-val">0.897</td><td class="metric-val">0.819</td><td class="metric-val">0.851</td><td class="metric-val">90.1%</td><td></td></tr>
+          <tr><td class="rank-num">06</td><td class="algo-name" style="color:var(--red)">Baseline (pre-Autopilot)</td><td class="metric-val" style="color:var(--red)">0.874</td><td class="metric-val">—</td><td class="metric-val">—</td><td class="metric-val">88.0%</td><td><span class="pill pill-baseline">BASELINE</span></td></tr>
+          <!-- GENERATED:LEADERBOARD_ROWS -->
+        </tbody>
+      </table>
+    </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted2);padding:0 4px;">* Baseline reflects the pre-Autopilot XGBoost model. PR-AUC and F1 metrics are not available for direct comparison.</div>
+    <div class="card">
+      <div class="card-title">AUC-ROC by Algorithm</div>
+      <div class="chart-wrap"><canvas id="chartLeaderboard"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PANEL 03: COMPARISON -->
+  <div class="panel" id="panel-2">
+    <div class="section-title">Baseline vs. Autopilot Model</div>
+    <div class="section-sub">Current model: offline XGBoost artifact &nbsp;·&nbsp; New model: Autopilot-tuned, endpoint-served</div>
+    <div class="grid-4 mb16">
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--green)">92.4%</div>
+        <div class="stat-label">New Repayment Rate</div>
+        <div class="stat-delta delta-up">&#8593; +4.4pp vs 88%</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--cyan)"><!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT --></div>
+        <div class="stat-label">AUC-ROC Improvement</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--amber)">-38%</div>
+        <div class="stat-label">False Negative Reduction</div>
+        <div class="stat-delta delta-up">Fewer missed defaults</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value" style="color:var(--purple)">~$0.002</div>
+        <div class="stat-label">Cost per Prediction</div>
+        <div class="stat-delta" style="color:var(--muted2)">Real-time endpoint</div>
+      </div>
+    </div>
+    <div class="card mb16">
+      <div class="card-title">Metric Comparison</div>
+      <div style="margin-top:8px;">
+        <div class="compare-row" style="margin-bottom:8px;">
+          <div></div>
+          <div style="text-align:right;font-size:10px;font-weight:700;color:var(--red);letter-spacing:0.5px;">BASELINE</div>
+          <div></div>
+          <div style="font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:0.5px;">AUTOPILOT</div>
+          <div></div>
         </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--cyan)">
-            <!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT -->
-          </div>
-          <div class="stat-label">AUC-ROC Improvement</div>
+        <div class="compare-row">
+          <div class="compare-label">AUC-ROC</div>
+          <div class="compare-bar-base"><span class="compare-val compare-val-base">0.874</span></div>
+          <div class="compare-center">&#8594;</div>
+          <div class="compare-bar-new"><span class="compare-val compare-val-new"><!-- GENERATED:BEST_AUC -->0.934<!-- GENERATED:BEST_AUC --></span></div>
+          <div style="font-size:10px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;"><!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT --></div>
         </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--amber)">-38%</div>
-          <div class="stat-label">False Negative Rate</div>
-          <div class="stat-delta delta-up">Fewer missed defaults</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-value" style="color:var(--purple)">~$0.002</div>
-          <div class="stat-label">Cost per Prediction</div>
-          <div class="stat-delta" style="color:var(--muted2)">Real-time endpoint</div>
+        <div class="compare-row">
+          <div class="compare-label">Repayment Rate</div>
+          <div class="compare-bar-base"><span class="compare-val compare-val-base">88.0%</span></div>
+          <div class="compare-center">&#8594;</div>
+          <div class="compare-bar-new"><span class="compare-val compare-val-new">92.4%</span></div>
+          <div style="font-size:10px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;">+4.4pp</div>
         </div>
       </div>
-      <div class="card mb16">
-        <div class="card-title">Metric Comparison</div>
+    </div>
+    <div class="card mb16">
+      <div class="card-title">Simulated Repayment Rate Trend</div>
+      <div class="chart-wrap"><canvas id="chartTrend"></canvas></div>
+    </div>
+    <div class="roi-box">
+      <div class="roi-item">
+        <div class="roi-val">$44K</div>
+        <div class="roi-label">Est. Monthly Loss Reduction<br><span style="font-size:9px;color:var(--muted)">at $10K advances/day</span></div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-val">~2wks</div>
+        <div class="roi-label">Time to Implement<br><span style="font-size:9px;color:var(--muted)">typical SecuredPress engagement</span></div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-val">&lt;$50/mo</div>
+        <div class="roi-label">SageMaker Endpoint Cost<br><span style="font-size:9px;color:var(--muted)">ml.m5.xlarge · us-east-1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 04: SHAP -->
+  <div class="panel" id="panel-3">
+    <div class="section-title">Feature Importance &amp; SHAP Analysis</div>
+    <div class="section-sub">SHAP (SHapley Additive exPlanations) &nbsp;·&nbsp; Model-agnostic explainability &nbsp;·&nbsp; Top features driving repayment predictions</div>
+    <div class="grid-2 mb16">
+      <div class="card">
+        <div class="card-title">Global SHAP Feature Importance</div>
         <div style="margin-top:8px;">
-          <div class="compare-row" style="margin-bottom:8px;">
-            <div></div>
-            <div style="text-align:right;font-size:10px;font-weight:700;color:var(--red);letter-spacing:0.5px;">BASELINE
-            </div>
-            <div></div>
-            <div style="font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:0.5px;">AUTOPILOT</div>
-            <div></div>
-          </div>
-          <div class="compare-row">
-            <div class="compare-label">AUC-ROC</div>
-            <div class="compare-bar-base"><span class="compare-val compare-val-base">0.874</span></div>
-            <div class="compare-center">&#8594;</div>
-            <div class="compare-bar-new"><span
-                class="compare-val compare-val-new"><!-- GENERATED:BEST_AUC -->0.934<!-- GENERATED:BEST_AUC --></span>
-            </div>
-            <div style="font-size:10px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;">
-              <!-- GENERATED:IMPROVEMENT -->+6.9%<!-- GENERATED:IMPROVEMENT -->
-            </div>
-          </div>
-          <div class="compare-row">
-            <div class="compare-label">Repayment Rate</div>
-            <div class="compare-bar-base"><span class="compare-val compare-val-base">88.0%</span></div>
-            <div class="compare-center">&#8594;</div>
-            <div class="compare-bar-new"><span class="compare-val compare-val-new">92.4%</span></div>
-            <div style="font-size:10px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;">
-              +4.4pp</div>
-          </div>
+          <div class="bar-row"><div class="bar-label">balance_advance_ratio</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,var(--cyan),#0088AA)"><span class="bar-val">0.241</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">prior_repay_score</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:linear-gradient(90deg,var(--cyan),#0088AA)"><span class="bar-val">0.198</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">days_since_payroll</div><div class="bar-track"><div class="bar-fill" style="width:69%;background:linear-gradient(90deg,var(--purple),#5533CC)"><span class="bar-val">0.167</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">avg_monthly_income</div><div class="bar-track"><div class="bar-fill" style="width:59%;background:linear-gradient(90deg,var(--purple),#5533CC)"><span class="bar-val">0.143</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">overdraft_frequency</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:linear-gradient(90deg,var(--amber),#CC8800)"><span class="bar-val">0.112</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">tx_velocity_30d</div><div class="bar-track"><div class="bar-fill" style="width:37%;background:linear-gradient(90deg,var(--amber),#CC8800)"><span class="bar-val">0.089</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">income_stability</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:rgba(90,96,112,0.6)"><span class="bar-val" style="color:var(--muted2)">0.053</span></div></div></div>
+          <div class="bar-row"><div class="bar-label">neobank</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:rgba(90,96,112,0.4)"><span class="bar-val" style="color:var(--muted2)">0.024</span></div></div></div>
         </div>
       </div>
-      <div class="card mb16">
-        <div class="card-title">Simulated Repayment Rate Trend</div>
-        <div class="chart-wrap"><canvas id="chartTrend"></canvas></div>
-      </div>
-      <div class="roi-box">
-        <div class="roi-item">
-          <div class="roi-val">$44K</div>
-          <div class="roi-label">Est. Monthly Loss Reduction<br><span style="font-size:9px;color:var(--muted)">at $10K
-              advances/day</span></div>
-        </div>
-        <div class="roi-item">
-          <div class="roi-val">~2wks</div>
-          <div class="roi-label">Time to Implement<br><span style="font-size:9px;color:var(--muted)">full audit +
-              deployment</span></div>
-        </div>
-        <div class="roi-item">
-          <div class="roi-val">&lt;$50/mo</div>
-          <div class="roi-label">SageMaker Endpoint Cost<br><span style="font-size:9px;color:var(--muted)">ml.m5.xlarge
-              · us-east-1</span></div>
-        </div>
+      <div class="card">
+        <div class="card-title">SHAP Summary Chart</div>
+        <div class="chart-wrap"><canvas id="chartShap"></canvas></div>
       </div>
     </div>
-
-    <!-- PANEL 04: SHAP -->
-    <div class="panel" id="panel-3">
-      <div class="section-title">Feature Importance &amp; SHAP Analysis</div>
-      <div class="section-sub">SHAP (SHapley Additive exPlanations) &nbsp;·&nbsp; Model-agnostic explainability
-        &nbsp;·&nbsp; Top features driving repayment predictions</div>
-      <div class="grid-2 mb16">
-        <div class="card">
-          <div class="card-title">Global SHAP Feature Importance</div>
-          <div style="margin-top:8px;">
-            <div class="bar-row">
-              <div class="bar-label">balance_advance_ratio</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:100%;background:linear-gradient(90deg,var(--cyan),#0088AA)"><span
-                    class="bar-val">0.241</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">prior_repay_score</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:82%;background:linear-gradient(90deg,var(--cyan),#0088AA)"><span
-                    class="bar-val">0.198</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">days_since_payroll</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:69%;background:linear-gradient(90deg,var(--purple),#5533CC)"><span
-                    class="bar-val">0.167</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">avg_monthly_income</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:59%;background:linear-gradient(90deg,var(--purple),#5533CC)"><span
-                    class="bar-val">0.143</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">overdraft_frequency</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:46%;background:linear-gradient(90deg,var(--amber),#CC8800)"><span
-                    class="bar-val">0.112</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">tx_velocity_30d</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:37%;background:linear-gradient(90deg,var(--amber),#CC8800)"><span
-                    class="bar-val">0.089</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">income_stability</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:22%;background:rgba(90,96,112,0.6)"><span class="bar-val"
-                    style="color:var(--muted2)">0.053</span></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">neobank</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:10%;background:rgba(90,96,112,0.4)"><span class="bar-val"
-                    style="color:var(--muted2)">0.024</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">SHAP Summary Chart</div>
-          <div class="chart-wrap"><canvas id="chartShap"></canvas></div>
-        </div>
+    <div class="grid-2">
+      <div class="insight-box">
+        <div class="insight-label">Key Finding</div>
+        <div class="insight-text">The balance-to-advance ratio is the single most predictive signal. Users requesting advances larger than their available balance default at 3.4× the rate of well-buffered users. This one feature accounts for 24% of the model's total predictive power.</div>
       </div>
-      <div class="grid-2">
-        <div class="insight-box">
-          <div class="insight-label">Key Finding</div>
-          <div class="insight-text">The balance-to-advance ratio is the single most predictive signal. Users requesting
-            advances larger than their available balance default at 3.4× the rate of well-buffered users. This one
-            feature accounts for 24% of the model's total predictive power.</div>
-        </div>
-        <div class="insight-box amber">
-          <div class="insight-label">Business Action</div>
-          <div class="insight-text">Users with 29+ days since last payroll AND overdraft frequency &gt; 3 represent the
-            highest-risk cohort. Tightening the advance cap to $15 for this segment captures 68% of defaults while
-            affecting only 9% of total applications.</div>
-        </div>
+      <div class="insight-box amber">
+        <div class="insight-label">Business Recommendation</div>
+        <div class="insight-text">Users with 29+ days since last payroll and overdraft frequency &gt; 3 represent the highest-risk cohort. Tightening the advance cap to $15 for this segment captures 68% of defaults while affecting only 9% of total applications.</div>
       </div>
     </div>
+  </div>
 
-    <!-- PANEL 05: DEPLOYMENT -->
-    <div class="panel" id="panel-4">
-      <div class="section-title">SageMaker Endpoint Deployment</div>
-      <div class="section-sub">From raw data to production real-time inference &nbsp;·&nbsp; Full pipeline provisioned
-        by Terraform</div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Deployment Pipeline</div>
-          <div class="flow">
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node">&#128315;</div>
-                <div class="flow-line"></div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title">S3 Training Bucket</div>
-                <div class="flow-desc">Labeled CSV uploaded before Autopilot starts</div>
-                <div class="flow-code">s3://{prefix}-training-data/data/train.csv</div>
-              </div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node">&#9881;&#65039;</div>
-                <div class="flow-line"></div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title">Autopilot Experiment</div>
-                <div class="flow-desc">AutoML — 250+ trials, HPO, preprocessing</div>
-                <div class="flow-code">{prefix}-job</div>
-              </div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node">&#128230;</div>
-                <div class="flow-line"></div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title">Model Registry</div>
-                <div class="flow-desc">Best candidate registered and approved</div>
-                <div class="flow-code">{prefix}-models</div>
-              </div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node">&#128295;</div>
-                <div class="flow-line"></div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title">Endpoint Config</div>
-                <div class="flow-desc">Instance type, variant config, data capture</div>
-                <div class="flow-code">ml.m5.xlarge &nbsp;·&nbsp; ~$0.23/hr</div>
-              </div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node">&#128640;</div>
-                <div class="flow-line"></div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title">Endpoint Live</div>
-                <div class="flow-desc">HTTPS &nbsp;·&nbsp; &lt;100ms p99 latency</div>
-                <div class="flow-code">{prefix}-endpoint</div>
-              </div>
-            </div>
-            <div class="flow-step">
-              <div class="flow-left">
-                <div class="flow-node active-node">&#129504;</div>
-              </div>
-              <div class="flow-content">
-                <div class="flow-title" style="color:var(--amber)">Decision Engine</div>
-                <div class="flow-desc">POST predict &rarr; score &rarr; advance bin ($15–$100)</div>
-                <div class="flow-code" style="color:var(--amber);border-color:rgba(255,179,0,0.3)">{"repay_prob": 0.91,
-                  "bin": "$75"}</div>
-              </div>
-            </div>
+  <!-- PANEL 05: DEPLOYMENT -->
+  <div class="panel" id="panel-4">
+    <div class="section-title">SageMaker Endpoint Deployment</div>
+    <div class="section-sub">From raw data to production real-time inference &nbsp;·&nbsp; Full pipeline provisioned by Terraform</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Deployment Pipeline</div>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node">&#128315;</div><div class="flow-line"></div></div>
+            <div class="flow-content"><div class="flow-title">S3 Training Bucket</div><div class="flow-desc">Labeled CSV uploaded before Autopilot starts</div><div class="flow-code">s3://{prefix}-training-data/data/train.csv</div></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node">&#9881;&#65039;</div><div class="flow-line"></div></div>
+            <div class="flow-content"><div class="flow-title">Autopilot Experiment</div><div class="flow-desc">AutoML — 250+ trials, HPO, preprocessing</div><div class="flow-code">{prefix}-job</div></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node">&#128230;</div><div class="flow-line"></div></div>
+            <div class="flow-content"><div class="flow-title">Model Registry</div><div class="flow-desc">Best candidate registered and approved</div><div class="flow-code">{prefix}-models</div></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node">&#128295;</div><div class="flow-line"></div></div>
+            <div class="flow-content"><div class="flow-title">Endpoint Config</div><div class="flow-desc">Instance type, variant config, data capture</div><div class="flow-code">ml.m5.xlarge &nbsp;·&nbsp; ~$0.23/hr</div></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node">&#128640;</div><div class="flow-line"></div></div>
+            <div class="flow-content"><div class="flow-title">Endpoint Live</div><div class="flow-desc">HTTPS &nbsp;·&nbsp; &lt;100ms p99 latency</div><div class="flow-code">{prefix}-endpoint</div></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-left"><div class="flow-node active-node">&#129504;</div></div>
+            <div class="flow-content"><div class="flow-title" style="color:var(--amber)">Decision Engine</div><div class="flow-desc">POST predict &rarr; score &rarr; advance bin ($15–$100)</div><div class="flow-code" style="color:var(--amber);border-color:rgba(255,179,0,0.3)">{"repay_prob": 0.91, "bin": "$75"}</div></div>
           </div>
         </div>
-        <div>
-          <div class="card mb16">
-            <div class="card-title">Endpoint Latency (p-values)</div>
-            <div class="chart-wrap-sm"><canvas id="chartLatency"></canvas></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Sample Inference Payload</div>
-            <pre
-              style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);line-height:1.8;overflow-x:auto;"><span style="color:var(--muted2)">// input (CSV row, no header)</span>
+      </div>
+      <div>
+        <div class="card mb16">
+          <div class="card-title">Endpoint Latency (percentiles)</div>
+          <div class="chart-wrap-sm"><canvas id="chartLatency"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sample Inference Payload</div>
+          <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);line-height:1.8;overflow-x:auto;"><span style="color:var(--muted2)">// input (CSV row, no header)</span>
+<span style="color:var(--muted2)">// feature order matches train.csv column sequence</span>
 2.4,0.87,3,3200,18,1,75,180.0,14,11,0,1,1001,29,18,4,2,0.81
 
 <span style="color:var(--muted2)">// response</span>
@@ -517,88 +296,54 @@
   <span style="color:var(--green)">"decision"</span>:  <span style="color:var(--green)">"APPROVE"</span>,
   <span style="color:var(--green)">"bin"</span>:       <span style="color:var(--green)">"$75"</span>
 }</pre>
-          </div>
         </div>
-      </div>
-      <div class="insight-box mt16">
-        <div class="insight-label">Architecture Note</div>
-        <div class="insight-text">Replacing a local .json artifact with a SageMaker endpoint enables SageMaker Model
-          Monitor for data drift detection, CloudWatch alarms for latency and error rate, and zero-downtime blue/green
-          deployments — all critical for a regulated fintech environment. The full Terraform source for this environment
-          is available on GitHub.</div>
       </div>
     </div>
+    <div class="insight-box mt16">
+      <div class="insight-label">Architecture Note</div>
+      <div class="insight-text">Replacing a local .json artifact with a SageMaker endpoint enables SageMaker Model Monitor for data drift detection, CloudWatch alarms for latency and error rate, and zero-downtime blue/green deployments — all critical for a regulated fintech environment. The full Terraform source for this environment is available on GitHub.</div>
+    </div>
+  </div>
 
-    <!-- PANEL 06: ABOUT -->
-    <div class="panel" id="panel-5">
-      <div class="section-title">About This Demo</div>
-      <div class="section-sub">Built and maintained by SecuredPress LLC &nbsp;·&nbsp; AWS SageMaker Cost &amp; Security
-        Specialists</div>
-      <div class="grid-2 mb16">
-        <div class="card">
-          <div class="card-title">What You Are Looking At</div>
-          <div style="font-size:12px;color:var(--muted2);line-height:1.8;">
-            <p style="margin-bottom:10px;">This dashboard visualises the output of a real SageMaker Autopilot experiment
-              run against a synthetic fintech dataset modelled on cash advance repayment behaviour.</p>
-            <p style="margin-bottom:10px;">Every number in this dashboard — AUC-ROC scores, feature importance values,
-              latency percentiles — comes from a real Autopilot job run in AWS. The Terraform infrastructure that
-              provisioned this environment is fully open-source.</p>
-            <p>The full source code, Terraform files, and Jupyter notebook are available on GitHub.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">SecuredPress Services</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th>Price</th>
-                <th>Timeline</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="algo-name">SageMaker Cost Audit</td>
-                <td class="metric-val" style="color:var(--cyan)">$2,500</td>
-                <td style="color:var(--muted2);font-size:11px">5 business days</td>
-              </tr>
-              <tr>
-                <td class="algo-name">Cost + Security Audit</td>
-                <td class="metric-val" style="color:var(--cyan)">$4,000</td>
-                <td style="color:var(--muted2);font-size:11px">5 business days</td>
-              </tr>
-              <tr>
-                <td class="algo-name">Secure Baseline Deploy</td>
-                <td class="metric-val" style="color:var(--cyan)">$8,000+</td>
-                <td style="color:var(--muted2);font-size:11px">Scoped</td>
-              </tr>
-              <tr>
-                <td class="algo-name">Monthly Monitoring</td>
-                <td class="metric-val" style="color:var(--cyan)">$1,500/mo</td>
-                <td style="color:var(--muted2);font-size:11px">3-month minimum</td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="margin-top:12px;font-size:11px;color:var(--muted2);">100% of audit fee applies toward deployment
-            if engaged within 60 days.</div>
+  <!-- PANEL 06: ABOUT -->
+  <div class="panel" id="panel-5">
+    <div class="section-title">About This Demo</div>
+    <div class="section-sub">Built and maintained by SecuredPress LLC &nbsp;·&nbsp; AWS SageMaker Cost &amp; Security Specialists</div>
+    <div class="grid-2 mb16">
+      <div class="card">
+        <div class="card-title">What You Are Looking At</div>
+        <div style="font-size:12px;color:var(--muted2);line-height:1.8;">
+          <p style="margin-bottom:10px;">This dashboard visualizes the output of a SageMaker Autopilot experiment run against a synthetic fintech dataset modeled on cash advance repayment behavior.</p>
+          <p style="margin-bottom:10px;">The metrics shown reflect a real Autopilot experiment structure — AUC-ROC scores, feature importance values, and latency percentiles are updated with actual results after running <code>generate_dashboard.py</code>. The Terraform infrastructure that provisioned this environment is fully open-source.</p>
+          <p>The full source code, Terraform files, and Jupyter notebook are available on GitHub.</p>
         </div>
       </div>
-      <div class="cta-box">
-        <div class="cta-text">
-          <h3>Is your SageMaker environment costing more than it should?</h3>
-          <p>Most ML teams are overspending on idle endpoints, oversized notebooks, and unoptimised training jobs. A
-            SecuredPress audit typically uncovers $30K–$80K in annual waste within five business days — with a full
-            remediation report and integration recommendations included.</p>
-        </div>
-        <a class="cta-btn" href="https://calendly.com/jose-perez-securedpress/sagemaker-cost-audit-discovery-call"
-          target="_blank">Book a Free 15-Min Call</a>
+      <div class="card">
+        <div class="card-title">SecuredPress Services</div>
+        <table>
+          <thead><tr><th>Service</th><th>Price</th><th>Timeline</th></tr></thead>
+          <tbody>
+            <tr><td class="algo-name">SageMaker Cost Audit</td><td class="metric-val" style="color:var(--cyan)">$2,500</td><td style="color:var(--muted2);font-size:11px">5 business days</td></tr>
+            <tr><td class="algo-name">Cost + Security Audit</td><td class="metric-val" style="color:var(--cyan)">$4,000</td><td style="color:var(--muted2);font-size:11px">5 business days</td></tr>
+            <tr><td class="algo-name">Secure Baseline Deploy</td><td class="metric-val" style="color:var(--cyan)">$8,000+</td><td style="color:var(--muted2);font-size:11px">Scoped</td></tr>
+            <tr><td class="algo-name">Monthly Monitoring</td><td class="metric-val" style="color:var(--cyan)">$1,500/mo</td><td style="color:var(--muted2);font-size:11px">3-month minimum</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted2);">100% of audit fee applies toward deployment if engaged within 60 days.</div>
       </div>
     </div>
+    <div class="cta-box">
+      <div class="cta-text">
+        <h3>Need this deployed in your environment?</h3>
+        <p>We scope and deliver production-ready SageMaker Autopilot pipelines — infrastructure as code, real-time endpoint deployment, CloudWatch monitoring, and SHAP reporting included. Book a free 15-minute scoping call to discuss your use case.</p>
+      </div>
+      <a class="cta-btn" href="https://calendly.com/jose-perez-securedpress/sagemaker-scoping" target="_blank">Book a Free 15-Min Call</a>
+    </div>
+  </div>
 
-  </div><!-- /content -->
+</div><!-- /content -->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-  <script src="dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="dashboard.js"></script>
 </body>
-
 </html>

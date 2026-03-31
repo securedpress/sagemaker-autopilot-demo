@@ -39,3 +39,6 @@ dashboard/index.generated.html
 .idea/
 *.swp
 *.swo
+
+# root img/ directory — assets live in dashboard/img/
+img/

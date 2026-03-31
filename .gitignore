@@ -1,0 +1,41 @@
+# terraform state — never commit these
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
+*.tfvars
+!*.tfvars.example
+
+# terraform crash logs
+crash.log
+crash.*.log
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv
+venv/
+
+# jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# aws credentials — just in case
+.aws/
+credentials
+
+# macos
+.DS_Store
+
+# generated dashboard output — the script writes this before pushing
+# the source of truth is dashboard/index.html in the repo
+dashboard/index.generated.html
+
+# editor
+.vscode/
+.idea/
+*.swp
+*.swo

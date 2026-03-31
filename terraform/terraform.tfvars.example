@@ -1,0 +1,23 @@
+# rename this file to terraform.tfvars and fill in your values
+# terraform.tfvars is gitignored — never commit it
+
+aws_region = "us-east-1"
+
+# change this if you deploy multiple instances side by side
+# lowercase, hyphens only — no spaces or underscores
+prefix = "sagemaker-autopilot-demo"
+
+# your name or team — shows up as the Owner tag on all AWS resources
+owner_tag = "your-name-here"
+
+# how long to let Autopilot run before it stops — default is 4 hours (14400 seconds)
+# increase to 28800 (8 hours) for more thorough experimentation
+autopilot_max_runtime_seconds = 14400
+
+# instance type for the real-time inference endpoint (Phase 3 only)
+# ml.m5.xlarge is the right balance of cost and performance for XGBoost inference
+# ml.m5.large works too and costs roughly half — fine for demo purposes
+endpoint_instance_type = "ml.m5.xlarge"
+
+# --- Phase 3 only — uncomment after Autopilot completes ---
+# model_package_arn = "arn:aws:sagemaker:us-east-1:123456789012:model-package/sagemaker-autopilot-demo-models/1"

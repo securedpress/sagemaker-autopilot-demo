@@ -24,36 +24,7 @@ behaviour using Plaid transaction features, internal repayment history, and user
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Your machine                                               │
-│  terraform apply  →  provisions all AWS resources           │
-│  bash scripts/upload_training_data.sh  →  seeds S3          │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-┌───────────────────────▼─────────────────────────────────────┐
-│  AWS · us-east-1                                            │
-│                                                             │
-│  IAM Role ──────────────────────────────────────────────┐  │
-│                                                          │  │
-│  S3 Training Bucket                                      │  │
-│    └── data/train.csv                                    │  │
-│                                                          ▼  │
-│  SageMaker Notebook  →  Autopilot Job  →  Model Registry   │
-│                              │                              │
-│  S3 Artifacts Bucket ◄───────┘                              │
-│    └── autopilot/  (all candidates)                         │
-│                                                             │
-│  SageMaker Endpoint  (Phase 3)                              │
-│    └── CloudWatch Alarms (5xx errors · p99 latency)         │
-└─────────────────────────────────────────────────────────────┘
-                        │
-┌───────────────────────▼─────────────────────────────────────┐
-│  GitHub Pages                                               │
-│  scripts/generate_dashboard.py  →  dashboard/index.html    │
-│  GitHub Actions  →  auto-deploys on push to main            │
-└─────────────────────────────────────────────────────────────┘
-```
+![Architecture](docs/architecture.svg)
 
 ---
 
@@ -285,8 +256,8 @@ in annual waste within five business days.
 
 ## About SecuredPress
 
-SecuredPress LLC is an AWS consulting firm specialising in SageMaker cost optimisation
-and ML infrastructure security audits.
+SecuredPress LLC delivers production-ready SageMaker Autopilot pipelines — infrastructure
+as code, real-time endpoint deployment, CloudWatch monitoring, and SHAP reporting included.
 
 **Services**
 
@@ -299,12 +270,5 @@ and ML infrastructure security audits.
 
 100% of the audit fee applies toward a deployment engagement if started within 60 days.
 
-**Book a free 15-minute discovery call →**
-[calendly.com/jose-perez-securedpress/sagemaker-cost-audit-discovery-call](https://calendly.com/jose-perez-securedpress/sagemaker-cost-audit-discovery-call)
-
----
-
-## License
-
-MIT — fork it, extend it, use it for your own demos.
-If it saves you time, a GitHub star goes a long way.
+**Need this deployed in your environment? Book a free 15-minute scoping call →**
+[calendly.com/jose-perez-securedpress/sagemaker-scoping](https://calendly.com/jose-perez-securedpress/sagemaker-scoping)

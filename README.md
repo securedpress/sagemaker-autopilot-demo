@@ -1,4 +1,4 @@
-# sagemaker-autopilot-demo
+# Sagemaker Autopilot Demo
 
 A fully deployable SageMaker Autopilot environment for fintech credit risk modeling.
 Clone it, run `terraform apply`, and follow the notebook to train, evaluate, and deploy

@@ -28,6 +28,8 @@ behaviour using Plaid transaction features, internal repayment history, and user
   <img src="docs/architecture.svg" alt="Architecture" />
 </div>
 
+---
+
 Terraform provisions all AWS resources in a single apply. Training data flows from S3 into
 a SageMaker Autopilot experiment that evaluates 250+ model candidates. The best model is
 registered, deployed to a real-time endpoint, and monitored via CloudWatch. After the

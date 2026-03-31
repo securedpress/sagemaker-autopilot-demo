@@ -24,7 +24,9 @@ behaviour using Plaid transaction features, internal repayment history, and user
 
 ## Architecture
 
-![Architecture](docs/architecture.svg)
+<div align="center">
+  <img src="docs/architecture.svg" alt="Architecture" />
+</div>
 
 ---
 
